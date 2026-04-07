@@ -7,19 +7,23 @@
   "ioValues": [
     {
       "name": "diameter",
-      "ioValue": 10
+      "ioValue": 10,
+      "currentEquation": "10"
     },
     {
       "name": "Length",
-      "ioValue": 30
+      "ioValue": 10,
+      "currentEquation": "10"
     },
     {
       "name": "pitch",
-      "ioValue": 2
+      "ioValue": 7,
+      "currentEquation": "7"
     },
     {
       "name": "toothside",
-      "ioValue": 0.6
+      "ioValue": 3,
+      "currentEquation": "3"
     }
   ],
   "topLevel": true,
@@ -38,8 +42,8 @@
     },
     {
       "atomType": "Code",
-      "x": 0.5593509820666097,
-      "y": 0.2546583850931677,
+      "x": 0.497907949790795,
+      "y": 0.28260869565217395,
       "uniqueID": "id-399",
       "ioValues": [
         {
@@ -48,15 +52,15 @@
         },
         {
           "name": "length",
-          "ioValue": 30
+          "ioValue": 10
         },
         {
           "name": "pitch",
-          "ioValue": 2
+          "ioValue": 7
         },
         {
           "name": "toothSide",
-          "ioValue": 0.6
+          "ioValue": 3
         }
       ],
       "codeVersion": 1,
@@ -91,31 +95,54 @@
       "name": "toothside"
     },
     {
-      "atomType": "Code",
-      "x": 0.4840055632823366,
-      "y": 0.6677018633540373,
-      "uniqueID": "id-434",
+      "atomType": "Rectangle",
+      "x": 0.4069037656903766,
+      "y": 0.7360248447204969,
+      "uniqueID": "id-456",
       "ioValues": [
         {
-          "name": "diameter",
-          "ioValue": 10,
-          "currentEquation": "10"
-        },
-        {
-          "name": "pitch",
-          "ioValue": 3
-        },
-        {
-          "name": "length",
-          "ioValue": 20
-        },
-        {
-          "name": "blockWidth",
+          "name": "x length",
           "ioValue": 30
+        },
+        {
+          "name": "y length",
+          "ioValue": 30,
+          "currentEquation": "30"
         }
-      ],
-      "codeVersion": 1,
-      "code": "const Inputs = [\n  { inputName: \"diameter\", type: \"number\", defaultValue: 12.7 },\n  { inputName: \"pitch\", type: \"number\", defaultValue: 2.0 },\n  { inputName: \"length\", type: \"number\", defaultValue: 20 },\n  { inputName: \"blockWidth\", type: \"number\", defaultValue: 30 },\n];\n\nconst radius = diameter / 2;\nconst overshoot = 3;\n\nconst helix = replicad.sketchHelix(\n  pitch, length + overshoot * 2, radius,\n  [0, 0, -overshoot], [0, 0, 1], false\n);\n\nconst threadProfile = (plane) => {\n  return replicad.draw()\n    .movePointerTo([0, 0])\n    .lineTo([0.6, 0])\n    .lineTo([0.3, 0.5])\n    .close()\n    .sketchOnPlane(plane); // plane only — no origin\n};\n\nconst thread = helix.sweepSketch(threadProfile, { frenet: true });\n\nconst bore = replicad.makeCylinder(radius, length + overshoot * 2)\n  .translate(0, 0, -overshoot);\n\nconst block = replicad.drawRectangle(blockWidth, blockWidth)\n  .sketchOnPlane(\"XY\")\n  .extrude(7);\n\nconst result = block.cut(thread)\nconsole.log(\"thread\", thread)\n\nreturn {\n  geometry: [result],\n  dimension: \"3D\",\n  tags: [\"female-threads\"],\n  color: \"#7ec8e3\",\n  plane: new replicad.Plane(),\n  bom: []\n};"
+      ]
+    },
+    {
+      "atomType": "Extrude",
+      "x": 0.5638075313807531,
+      "y": 0.639751552795031,
+      "uniqueID": "id-460",
+      "ioValues": [
+        {
+          "name": "geometry",
+          "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "height",
+          "ioValue": 15,
+          "currentEquation": "15"
+        }
+      ]
+    },
+    {
+      "atomType": "Difference",
+      "x": 0.7112970711297072,
+      "y": 0.6428571428571428,
+      "uniqueID": "id-464",
+      "ioValues": [
+        {
+          "name": "geometry1",
+          "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "geometry2",
+          "ioValue": "__GEOMETRY_INPUT__"
+        }
+      ]
     }
   ],
   "allConnectors": [
@@ -123,6 +150,11 @@
       "ap2Name": "number or geometry",
       "ap1ID": "id-399",
       "ap2ID": "id-397"
+    },
+    {
+      "ap2Name": "geometry2",
+      "ap1ID": "id-399",
+      "ap2ID": "id-464"
     },
     {
       "ap2Name": "diameter",
@@ -143,6 +175,16 @@
       "ap2Name": "toothSide",
       "ap1ID": "id-417",
       "ap2ID": "id-399"
+    },
+    {
+      "ap2Name": "geometry",
+      "ap1ID": "id-456",
+      "ap2ID": "id-460"
+    },
+    {
+      "ap2Name": "geometry1",
+      "ap1ID": "id-460",
+      "ap2ID": "id-464"
     }
   ],
   "unitsKey": "Unitless",
