@@ -92,17 +92,18 @@
     },
     {
       "atomType": "Code",
-      "x": 0.4812239221140473,
-      "y": 0.65527950310559,
+      "x": 0.4840055632823366,
+      "y": 0.6677018633540373,
       "uniqueID": "id-434",
       "ioValues": [
         {
           "name": "diameter",
-          "ioValue": 10
+          "ioValue": 10,
+          "currentEquation": "10"
         },
         {
           "name": "pitch",
-          "ioValue": 2
+          "ioValue": 3
         },
         {
           "name": "length",
@@ -114,7 +115,7 @@
         }
       ],
       "codeVersion": 1,
-      "code": "const Inputs = [\n  { inputName: \"diameter\", type: \"number\", defaultValue: 12.7 },\n  { inputName: \"pitch\", type: \"number\", defaultValue: 2.0 },\n  { inputName: \"length\", type: \"number\", defaultValue: 20 },\n  { inputName: \"blockWidth\", type: \"number\", defaultValue: 30 },\n];\n\nconst radius = diameter / 2;\nconst overshoot = 3;\n\n// Thread helix — starts 1mm below block so it doesn't share a face\nconst helix = replicad.sketchHelix(\n  pitch, length + overshoot * 2, radius,\n  [0, 0, -overshoot], [0, 0, 1], false\n);\n\nconst threadProfile = (plane, origin) => {\n  const profilePlane = new replicad.Plane(origin, [0, 0, -1], plane.zDir);\n  return replicad.draw()\n    .movePointerTo([0, 0])\n    .lineTo([0.6, 0])\n    .lineTo([0.3, 0.5])\n    .close()\n    .sketchOnPlane(profilePlane);\n};\n\nconst thread = helix.sweepSketch(threadProfile, { frenet: true });\n\n// Bore cylinder — also overshoots by 1mm each end\nconst bore = replicad.makeCylinder(radius, length + overshoot * 2)\n  .translate(0, 0, -overshoot);\n\n// Block\nconst block = replicad.drawRectangle(blockWidth, blockWidth)\n  .sketchOnPlane(\"XY\")\n  .extrude(7);\n\n// Two separate cuts — no fuse needed\nconst withBore = block.cut(bore);\nconst result = withBore.cut(thread);\n\nreturn {\n  geometry: [result],\n  dimension: \"3D\",\n  tags: [\"female-threads\"],\n  color: \"#7ec8e3\",\n  plane: new replicad.Plane(),\n  bom: []\n};"
+      "code": "const Inputs = [\n  { inputName: \"diameter\", type: \"number\", defaultValue: 12.7 },\n  { inputName: \"pitch\", type: \"number\", defaultValue: 2.0 },\n  { inputName: \"length\", type: \"number\", defaultValue: 20 },\n  { inputName: \"blockWidth\", type: \"number\", defaultValue: 30 },\n];\n\nconst radius = diameter / 2;\nconst overshoot = 3;\n\n// Thread helix — starts 1mm below block so it doesn't share a face\nconst helix = replicad.sketchHelix(\n  pitch, length + overshoot * 2, radius,\n  [0, 0, -overshoot], [0, 0, 1], false\n);\n\nconst threadProfile = (plane, origin) => {\n  const profilePlane = new replicad.Plane(origin, [0, 0, -1], plane.zDir);\n  return replicad.draw()\n    .movePointerTo([0, 0])\n    .lineTo([0.6, 0])\n    .lineTo([0.3, 0.5])\n    .close()\n    .sketchOnPlane(profilePlane);\n};\n\nconst thread = helix.sweepSketch(threadProfile, { frenet: true, solid: true });\n\n// Bore cylinder — also overshoots by 1mm each end\nconst bore = replicad.makeCylinder(radius, length + overshoot * 2)\n  .translate(0, 0, -overshoot);\n\n// Block\nconst block = replicad.drawRectangle(blockWidth, blockWidth)\n  .sketchOnPlane(\"XY\")\n  .extrude(7);\n\n// Two separate cuts — no fuse needed\nconst withBore = block.cut(thread);\nconst result = withBore.cut(bore);\nconsole.log(\"result\",result)\n\nreturn {\n  geometry: [result],\n  dimension: \"3D\",\n  tags: [\"female-threads\"],\n  color: \"#7ec8e3\",\n  plane: new replicad.Plane(),\n  bom: []\n};"
     }
   ],
   "allConnectors": [
