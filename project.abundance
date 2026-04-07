@@ -7,23 +7,19 @@
   "ioValues": [
     {
       "name": "diameter",
-      "ioValue": 1,
-      "currentEquation": "1"
+      "ioValue": 10
     },
     {
       "name": "Length",
-      "ioValue": 5,
-      "currentEquation": "5"
+      "ioValue": 30
     },
     {
       "name": "pitch",
-      "ioValue": 0.0769,
-      "currentEquation": "0.0769"
+      "ioValue": 2
     },
     {
       "name": "toothside",
-      "ioValue": 0.03,
-      "currentEquation": "0.030"
+      "ioValue": 0.6
     }
   ],
   "topLevel": true,
@@ -48,19 +44,19 @@
       "ioValues": [
         {
           "name": "diameter",
-          "ioValue": 1
+          "ioValue": 10
         },
         {
           "name": "length",
-          "ioValue": 5
+          "ioValue": 30
         },
         {
           "name": "pitch",
-          "ioValue": 0.0769
+          "ioValue": 2
         },
         {
           "name": "toothSide",
-          "ioValue": 0.03
+          "ioValue": 0.6
         }
       ],
       "codeVersion": 1,
