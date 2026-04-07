@@ -1,13 +1,127 @@
 {
-    "atomType": "Molecule",
-    "x": 0,
-    "y": 0,
-    "uniqueID": "id-396",
-    "name": "threaded-rod",
-    "topLevel": true,
-    "allAtoms": [],
-    "allConnectors": [],
-    "unitsKey": "Unitless",
-    "fileTypeVersion": 1,
-    "filetypeVersion": 1
+  "atomType": "Molecule",
+  "x": 0,
+  "y": 0,
+  "uniqueID": "id-396",
+  "name": "threaded-rod",
+  "ioValues": [
+    {
+      "name": "diameter",
+      "ioValue": 10
+    },
+    {
+      "name": "Length",
+      "ioValue": 20,
+      "currentEquation": "20"
+    },
+    {
+      "name": "pitch",
+      "ioValue": 2,
+      "currentEquation": "2"
+    },
+    {
+      "name": "toothside",
+      "ioValue": 0.6,
+      "currentEquation": ".6"
+    }
+  ],
+  "topLevel": true,
+  "allAtoms": [
+    {
+      "atomType": "Output",
+      "x": 0.98,
+      "y": 0.5,
+      "uniqueID": "id-397",
+      "ioValues": [
+        {
+          "name": "number or geometry",
+          "ioValue": "__GEOMETRY_INPUT__"
+        }
+      ]
+    },
+    {
+      "atomType": "Code",
+      "x": 0.5326842837273992,
+      "y": 0.4751552795031056,
+      "uniqueID": "id-399",
+      "ioValues": [
+        {
+          "name": "diameter",
+          "ioValue": 10
+        },
+        {
+          "name": "length",
+          "ioValue": 20
+        },
+        {
+          "name": "pitch",
+          "ioValue": 2
+        },
+        {
+          "name": "toothSide",
+          "ioValue": 0.6
+        }
+      ],
+      "codeVersion": 1,
+      "code": "const Inputs = [\n  { inputName: \"diameter\", type: \"number\", defaultValue: 10 },\n  { inputName: \"length\", type: \"number\", defaultValue: 30 },\n  { inputName: \"pitch\", type: \"number\", defaultValue: 2 },\n  { inputName: \"toothSide\", type: \"number\", defaultValue: 0.6 }\n];\n\nconst innerRadius = diameter / 2;\n\n// Draw the thread profile: a triangle swept along a helix\nconst drawProfile = (plane, origin) => {\n  const originPlane = new replicad.Plane(origin, [0, 0, -1], plane.zDir);\n  return replicad.draw()\n    .hLine(-toothSide)\n    .polarLine(toothSide, 60)\n    .close()\n    .sketchOnPlane(originPlane);\n};\n\nconst threadHelix = replicad.sketchHelix(\n  pitch,\n  length,\n  innerRadius,\n  [0, 0, 0],\n  [0, 0, 1],\n  false\n);\n\nconst thread = threadHelix.sweepSketch(drawProfile, { frenet: true });\n\n// Main cylinder shaft - rotate 2 degrees to avoid seam collision with thread start\nconst shaft = replicad.makeCylinder(innerRadius, length).rotate(2);\n\n// Fuse with sameFace optimisation to prevent kernel errors at the junction\nconst screw = shaft.fuse(thread, { optimisation: \"sameFace\" });\n\nreturn {\n  geometry: [screw],\n  dimension: \"3D\",\n  tags: [\"screw\"],\n  color: \"#8a8a8a\",\n  plane: null,\n  bom: []\n};"
+    },
+    {
+      "atomType": "Input",
+      "x": 0.025384615384615384,
+      "y": 0.3695652173913043,
+      "uniqueID": "id-408",
+      "name": "diameter"
+    },
+    {
+      "atomType": "Input",
+      "x": 0.025384615384615384,
+      "y": 0.46187290969899664,
+      "uniqueID": "id-411",
+      "name": "Length"
+    },
+    {
+      "atomType": "Input",
+      "x": 0.025384615384615384,
+      "y": 0.554180602006689,
+      "uniqueID": "id-414",
+      "name": "pitch"
+    },
+    {
+      "atomType": "Input",
+      "x": 0.025384615384615384,
+      "y": 0.6464882943143813,
+      "uniqueID": "id-417",
+      "name": "toothside"
+    }
+  ],
+  "allConnectors": [
+    {
+      "ap2Name": "number or geometry",
+      "ap1ID": "id-399",
+      "ap2ID": "id-397"
+    },
+    {
+      "ap2Name": "diameter",
+      "ap1ID": "id-408",
+      "ap2ID": "id-399"
+    },
+    {
+      "ap2Name": "length",
+      "ap1ID": "id-411",
+      "ap2ID": "id-399"
+    },
+    {
+      "ap2Name": "pitch",
+      "ap1ID": "id-414",
+      "ap2ID": "id-399"
+    },
+    {
+      "ap2Name": "toothSide",
+      "ap1ID": "id-417",
+      "ap2ID": "id-399"
+    }
+  ],
+  "unitsKey": "Unitless",
+  "fileTypeVersion": 1,
+  "filetypeVersion": 1
 }
