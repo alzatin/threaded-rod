@@ -12,8 +12,8 @@
     },
     {
       "name": "Length",
-      "ioValue": 10,
-      "currentEquation": "10"
+      "ioValue": 20,
+      "currentEquation": "20"
     },
     {
       "name": "pitch",
@@ -52,7 +52,7 @@
         },
         {
           "name": "length",
-          "ioValue": 10
+          "ioValue": 20
         },
         {
           "name": "pitch",
