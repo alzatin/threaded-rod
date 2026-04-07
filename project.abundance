@@ -92,8 +92,8 @@
     },
     {
       "atomType": "Code",
-      "x": 0.4748078565328779,
-      "y": 0.6459627329192547,
+      "x": 0.4812239221140473,
+      "y": 0.65527950310559,
       "uniqueID": "id-434",
       "ioValues": [
         {
@@ -102,13 +102,11 @@
         },
         {
           "name": "pitch",
-          "ioValue": 2,
-          "currentEquation": "2"
+          "ioValue": 2
         },
         {
           "name": "length",
-          "ioValue": 20,
-          "currentEquation": "20"
+          "ioValue": 20
         },
         {
           "name": "blockWidth",
