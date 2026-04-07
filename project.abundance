@@ -7,22 +7,23 @@
   "ioValues": [
     {
       "name": "diameter",
-      "ioValue": 10
+      "ioValue": 1,
+      "currentEquation": "1"
     },
     {
       "name": "Length",
-      "ioValue": 20,
-      "currentEquation": "20"
+      "ioValue": 5,
+      "currentEquation": "5"
     },
     {
       "name": "pitch",
-      "ioValue": 2,
-      "currentEquation": "2"
+      "ioValue": 0.0769,
+      "currentEquation": "0.0769"
     },
     {
       "name": "toothside",
-      "ioValue": 0.6,
-      "currentEquation": ".6"
+      "ioValue": 0.03,
+      "currentEquation": "0.030"
     }
   ],
   "topLevel": true,
@@ -41,25 +42,25 @@
     },
     {
       "atomType": "Code",
-      "x": 0.5326842837273992,
+      "x": 0.5380017079419299,
       "y": 0.4751552795031056,
       "uniqueID": "id-399",
       "ioValues": [
         {
           "name": "diameter",
-          "ioValue": 10
+          "ioValue": 1
         },
         {
           "name": "length",
-          "ioValue": 20
+          "ioValue": 5
         },
         {
           "name": "pitch",
-          "ioValue": 2
+          "ioValue": 0.0769
         },
         {
           "name": "toothSide",
-          "ioValue": 0.6
+          "ioValue": 0.03
         }
       ],
       "codeVersion": 1,
@@ -68,28 +69,28 @@
     {
       "atomType": "Input",
       "x": 0.025384615384615384,
-      "y": 0.3695652173913043,
+      "y": 0.15384615384615385,
       "uniqueID": "id-408",
       "name": "diameter"
     },
     {
       "atomType": "Input",
       "x": 0.025384615384615384,
-      "y": 0.46187290969899664,
+      "y": 0.24615384615384617,
       "uniqueID": "id-411",
       "name": "Length"
     },
     {
       "atomType": "Input",
       "x": 0.025384615384615384,
-      "y": 0.554180602006689,
+      "y": 0.3384615384615385,
       "uniqueID": "id-414",
       "name": "pitch"
     },
     {
       "atomType": "Input",
       "x": 0.025384615384615384,
-      "y": 0.6464882943143813,
+      "y": 0.4307692307692308,
       "uniqueID": "id-417",
       "name": "toothside"
     }
